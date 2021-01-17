@@ -7,12 +7,12 @@ import java.io.Serializable;
 @Table(name = "USERS")
 public class Usuario implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-   private String usuario;
+
+    private String usuario;
 
     private String pass;
 
