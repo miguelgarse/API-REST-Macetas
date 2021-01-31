@@ -1,20 +1,29 @@
 package com.tfg.maceteros.modelo;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
 public class Usuario implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+	
+	@Column(name = "usuario")
+    private String username;
 
-    private String usuario;
-
-    private String pass;
+	@Column(name = "pass")
+    private String password;
 
     public Long getId() {
         return id;
@@ -24,19 +33,20 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getPass() {
-        return pass;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
+   
 }

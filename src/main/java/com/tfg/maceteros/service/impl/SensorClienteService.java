@@ -1,7 +1,10 @@
 package com.tfg.maceteros.service.impl;
 
-import com.tfg.maceteros.dto.ClienteDTO;
-import com.tfg.maceteros.dto.SensorDTO;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.tfg.maceteros.dto.Sensor_ClienteDTO;
 import com.tfg.maceteros.mappers.ClienteMapper;
 import com.tfg.maceteros.mappers.SensorClienteMapper;
@@ -15,10 +18,6 @@ import com.tfg.maceteros.modelo.dao.SensorClienteDao;
 import com.tfg.maceteros.modelo.dao.SensorDao;
 import com.tfg.maceteros.modelo.dao.TipoSensorDao;
 import com.tfg.maceteros.service.ISensorClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class SensorClienteService implements ISensorClienteService {

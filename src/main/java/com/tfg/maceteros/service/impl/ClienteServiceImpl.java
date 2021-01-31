@@ -1,5 +1,10 @@
 package com.tfg.maceteros.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.tfg.maceteros.dto.ClienteDTO;
 import com.tfg.maceteros.mappers.ClienteMapper;
 import com.tfg.maceteros.modelo.Cliente;
@@ -7,12 +12,6 @@ import com.tfg.maceteros.modelo.Sensor_Cliente;
 import com.tfg.maceteros.modelo.dao.ClienteDao;
 import com.tfg.maceteros.modelo.dao.SensorClienteDao;
 import com.tfg.maceteros.service.IClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 @Service
 public class ClienteServiceImpl implements IClienteService {
 
@@ -24,7 +23,6 @@ public class ClienteServiceImpl implements IClienteService {
     private SensorClienteDao sensorClienteDao;
 
     public ClienteDTO añadirCliente(ClienteDTO clienteDto) {
-
         clienteDao.save(clienteMapper.dtoToEntity(clienteDto));
         return clienteMapper.entityToDto(clienteDao.findByThingsBoard(clienteDto.getThingsboardId()));
     }
@@ -63,6 +61,5 @@ public class ClienteServiceImpl implements IClienteService {
 
         return clienteMapper.entityToDto(sensorCliente.getCliente());
     }
-
 
 }
