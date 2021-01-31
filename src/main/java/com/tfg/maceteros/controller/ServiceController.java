@@ -1,17 +1,24 @@
 package com.tfg.maceteros.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tfg.maceteros.dto.EventsDTO;
 import com.tfg.maceteros.dto.TimeLineDTO;
-import com.tfg.maceteros.modelo.Usuario;
 import com.tfg.maceteros.service.IServicio;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
 
 @CrossOrigin(value = "*")
 @RestController
@@ -21,13 +28,6 @@ public class ServiceController {
 
     @Autowired
     private IServicio service;
-
-    @GetMapping(value = "/login")
-    @ApiOperation(value = "Autenticacion de usuarios", hidden = true)
-    @ApiIgnore
-    public Usuario login(@RequestParam String user, @RequestParam String pass) {
-        return service.login(user, pass);
-    }
 
     @PostMapping(value = "/persistir")
     @ApiOperation(value = "Operación para persistir todos los datos de un dispositvo", hidden = true)

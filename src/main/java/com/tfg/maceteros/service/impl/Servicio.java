@@ -1,18 +1,11 @@
 package com.tfg.maceteros.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tfg.maceteros.dto.EventsDTO;
-import com.tfg.maceteros.dto.TimeLineDTO;
-import com.tfg.maceteros.mappers.EventsMapper;
-import com.tfg.maceteros.mappers.TimelineMapper;
-import com.tfg.maceteros.modelo.Cliente;
-import com.tfg.maceteros.modelo.Sensor_Cliente;
-import com.tfg.maceteros.modelo.Timeline;
-import com.tfg.maceteros.modelo.Usuario;
-import com.tfg.maceteros.modelo.dao.*;
-import com.tfg.maceteros.service.IServicio;
-import com.tfg.maceteros.service.config.Constantes;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +19,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tfg.maceteros.dto.EventsDTO;
+import com.tfg.maceteros.dto.TimeLineDTO;
+import com.tfg.maceteros.mappers.EventsMapper;
+import com.tfg.maceteros.mappers.TimelineMapper;
+import com.tfg.maceteros.modelo.Cliente;
+import com.tfg.maceteros.modelo.Sensor_Cliente;
+import com.tfg.maceteros.modelo.Timeline;
+import com.tfg.maceteros.modelo.dao.ClienteDao;
+import com.tfg.maceteros.modelo.dao.EventsDao;
+import com.tfg.maceteros.modelo.dao.SensorClienteDao;
+import com.tfg.maceteros.modelo.dao.SensorDao;
+import com.tfg.maceteros.modelo.dao.TimeLineDao;
+import com.tfg.maceteros.modelo.dao.TipoSensorDao;
+import com.tfg.maceteros.modelo.dao.UsuarioDao;
+import com.tfg.maceteros.service.IServicio;
+import com.tfg.maceteros.service.config.Constantes;
 
 @Service
 public class Servicio implements IServicio {
@@ -56,17 +66,6 @@ public class Servicio implements IServicio {
     private RestTemplate restTemplate(RestTemplateBuilder builder) {
         // Do any additional configuration here
         return builder.build();
-    }
-
-    public Usuario login(String usuario, String pass) {
-        List<Usuario> usuarios = (ArrayList<Usuario>) usuarioDao.findAll();
-        String passCod = Base64.getEncoder().encodeToString(pass.getBytes());
-        for (Usuario user : usuarios) {
-            if (user.getUsuario().equals(usuario) && user.getPass().equals(passCod)) {
-                return user;
-            }
-        }
-        return new Usuario();
     }
 
     private HttpHeaders cabeceras() {
