@@ -1,13 +1,8 @@
 package com.tfg.maceteros.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-
 public class Sensor_ClienteDTO {
-	@ApiModelProperty(value = "Campo autocompletado")
 	private Long id;
-	@ApiModelProperty(value = "Sensor")
 	private SensorDTO sensores;
-	@ApiModelProperty(value = "Cliente")
 	private ClienteDTO cliente;
 
 	public Long getId() {
@@ -34,5 +29,4 @@ public class Sensor_ClienteDTO {
 		this.cliente = cliente;
 	}
 
-	
 }

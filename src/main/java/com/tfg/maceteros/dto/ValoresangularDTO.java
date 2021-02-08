@@ -1,7 +1,5 @@
 package com.tfg.maceteros.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 

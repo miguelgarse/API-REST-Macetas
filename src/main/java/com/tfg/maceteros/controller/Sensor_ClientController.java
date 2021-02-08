@@ -1,56 +1,46 @@
 package com.tfg.maceteros.controller;
 
-import com.tfg.maceteros.dto.ClienteDTO;
-import com.tfg.maceteros.dto.SensorDTO;
-import com.tfg.maceteros.dto.Sensor_ClienteDTO;
-import com.tfg.maceteros.modelo.Sensor_Cliente;
-import com.tfg.maceteros.service.IClienteService;
-import com.tfg.maceteros.service.ISensorClienteService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(value = "*")
+import com.tfg.maceteros.dto.Sensor_ClienteDTO;
+import com.tfg.maceteros.service.ISensorClienteService;
+
 @RestController
 @RequestMapping(value = "/api/sensor-client")
-@Api(tags = "Sensor_Cliente_Controller")
-//@ApiIgnore
 public class Sensor_ClientController {
 
-    @Autowired
-    private ISensorClienteService service;
-    @ApiIgnore
-    @PutMapping(value = "")
-    @ApiOperation(value = "Operacion para añadir un nuevo sensor a un cliente en la Base de Datos.")
-    public Sensor_ClienteDTO añadirSensorCliente( @RequestBody @ApiParam(value = "Cliente al que pertemece el sensor") Sensor_ClienteDTO sensor_cliente) {
-        return service.añadirSensorCliente(sensor_cliente);
-    }
+	@Autowired
+	private ISensorClienteService service;
 
-    @ApiIgnore
-    @PostMapping(value = "/{sensor_client_id}")
-    @ApiOperation(value = "Operación para realizar la modificacion de un sensor_client")
-    public Sensor_ClienteDTO modificarSensorCliente(@NotNull @NotEmpty @RequestBody @ApiParam(value = "Sensor_Cliente con las modificaciones") Sensor_ClienteDTO sensorCliente, @PathVariable("sensor_client_id") String identificador) {
-        return service.modificarSensorCliente(sensorCliente,identificador);
-    }
+	@PutMapping(value = "")
+	public Sensor_ClienteDTO añadirSensorCliente(@RequestBody Sensor_ClienteDTO sensor_cliente) {
+		return service.añadirSensorCliente(sensor_cliente);
+	}
 
-    @ApiIgnore
-    @DeleteMapping(value = "/{sensor_client_id}")
-    @ApiOperation(value = "Operación para realizar el borrado de un sensor_client")
-    public void borrarSensorCliente( @PathVariable("sensor_client_id") String identificador) {
-        service.borrarSensorCliente(identificador);
-    }
+	@PostMapping(value = "/{sensor_client_id}")
+	public Sensor_ClienteDTO modificarSensorCliente(@NotNull @NotEmpty @RequestBody Sensor_ClienteDTO sensorCliente,
+			@PathVariable("sensor_client_id") String identificador) {
+		return service.modificarSensorCliente(sensorCliente, identificador);
+	}
 
+	@DeleteMapping(value = "/{sensor_client_id}")
+	public void borrarSensorCliente(@PathVariable("sensor_client_id") String identificador) {
+		service.borrarSensorCliente(identificador);
+	}
 
-    @GetMapping(value = "/{sensor_id}")
-    @ApiOperation(value = "Operación para realizar la busqueda de un sensor_cliente mediante el sensor")
-    public Sensor_ClienteDTO findSensorCliente( @PathVariable("sensor_id") String identificador) {
-      return  service.buscarSensorCliente(identificador);
-    }
+	@GetMapping(value = "/{sensor_id}")
+	public Sensor_ClienteDTO findSensorCliente(@PathVariable("sensor_id") String identificador) {
+		return service.buscarSensorCliente(identificador);
+	}
 }

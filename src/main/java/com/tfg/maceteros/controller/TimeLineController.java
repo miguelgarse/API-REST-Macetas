@@ -1,36 +1,32 @@
 package com.tfg.maceteros.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tfg.maceteros.dto.TimeLineDTO;
 import com.tfg.maceteros.dto.ValoresangularDTO;
 import com.tfg.maceteros.service.ITimeLineService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/timeLine")
-@CrossOrigin(value = "*")
-@Api(tags = "Timeline Controller")
 public class TimeLineController {
 
-    @Autowired
-    private ITimeLineService service;
+	@Autowired
+	private ITimeLineService service;
 
-    @GetMapping(value = "/{sensor_id}")
-    @ApiOperation(value = "Operación para listar los valores recogidos por un sensor")
-    public List<TimeLineDTO> valoresSensor(@PathVariable(value = "sensor_id") @ApiParam(value = "Identificador del sensor a buscar") String sensorId ) {
-        return service.valoresSensor(sensorId);
-    }
+	@GetMapping(value = "/{sensor_id}")
+	public List<TimeLineDTO> valoresSensor(
+			@PathVariable(value = "sensor_id") String sensorId) {
+		return service.valoresSensor(sensorId);
+	}
 
-    @ApiIgnore
-    @GetMapping(value = "all")
-    @ApiOperation(value = "Operación para listar los valores de todos los sensores de un cliente")
-    public List<ValoresangularDTO> valoresCliente( ) {
-        return service.valoresCliente();
-    }
+	@GetMapping(value = "all")
+	public List<ValoresangularDTO> valoresCliente() {
+		return service.valoresCliente();
+	}
 }

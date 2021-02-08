@@ -1,19 +1,12 @@
 package com.tfg.maceteros.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-
 public class ClienteDTO {
 
-	@ApiModelProperty(value = "Campo autocompletado")
-	 private Long id;
-	@ApiModelProperty(value = "Descripción del cliente")
+	private Long id;
 	private String descripcion;
-	@ApiModelProperty(value = "Campo para identificar el cliente en la interfaz")
 	private String letra;
-	@ApiModelProperty(value = "Identificador asignado por la plataforma ThingsBaord")
 	private String thingsboardId;
 
-	
 	public String getThingsboardId() {
 		return thingsboardId;
 	}
@@ -45,6 +38,5 @@ public class ClienteDTO {
 	public void setLetra(String letra) {
 		this.letra = letra;
 	}
-	
-		
+
 }

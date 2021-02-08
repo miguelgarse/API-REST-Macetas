@@ -1,21 +1,16 @@
 package com.tfg.maceteros.service.impl;
 
-import com.tfg.maceteros.dto.TimeLineDTO;
-import com.tfg.maceteros.dto.TipoSensorDTO;
-import com.tfg.maceteros.mappers.TimelineMapper;
-import com.tfg.maceteros.mappers.TipoSensorMapper;
-import com.tfg.maceteros.modelo.Sensor;
-import com.tfg.maceteros.modelo.TipoSensor;
-import com.tfg.maceteros.modelo.dao.SensorDao;
-import com.tfg.maceteros.modelo.dao.TimeLineDao;
-import com.tfg.maceteros.modelo.dao.TipoSensorDao;
-import com.tfg.maceteros.service.ITipoSensorService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
+import com.tfg.maceteros.dto.TipoSensorDTO;
+import com.tfg.maceteros.mappers.TipoSensorMapper;
+import com.tfg.maceteros.modelo.TipoSensor;
+import com.tfg.maceteros.modelo.dao.TipoSensorDao;
+import com.tfg.maceteros.service.ITipoSensorService;
 
 @Service
 public class TipoSensorServiceImpl implements ITipoSensorService {

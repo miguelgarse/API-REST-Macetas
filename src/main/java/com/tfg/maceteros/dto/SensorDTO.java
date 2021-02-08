@@ -1,15 +1,9 @@
 package com.tfg.maceteros.dto;
 
-import com.tfg.maceteros.modelo.TipoSensor;
-import io.swagger.annotations.ApiModelProperty;
-
 public class SensorDTO {
 
-	@ApiModelProperty(value = "Campo autocompletado")
-    private Long id;
-	@ApiModelProperty(value = "Nombre del sensor")
+	private Long id;
 	private String nombre;
-	@ApiModelProperty(value = "Tipo de Sensor asignado")
 	private String tipoSensorId;
 
 	public String getNombre() {
