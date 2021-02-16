@@ -13,7 +13,7 @@
 	<artifactId>macetero</artifactId>
 	<version>0.1.0</version>
 	<name>demo</name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<properties>
 		<start-class>com.tfg.maceteros.DemoApplication</start-class>
@@ -26,8 +26,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		
-		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

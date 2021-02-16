@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tfg.maceteros.modelo.Usuario;
+import com.tfg.maceteros.modelo.User;
 import com.tfg.maceteros.service.IUsersServices;
 
 @RestController
@@ -17,7 +17,7 @@ public class UsersController {
     private IUsersServices userService;
 
     @GetMapping(value = "/login")
-    public Usuario login(@RequestParam String user, @RequestParam String pass) {
+    public User login(@RequestParam String user, @RequestParam String pass) {
         return userService.login(user, pass);
     }
     

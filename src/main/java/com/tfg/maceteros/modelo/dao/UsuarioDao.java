@@ -1,10 +1,17 @@
 package com.tfg.maceteros.modelo.dao;
 
-import com.tfg.maceteros.modelo.Usuario;
-import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UsuarioDao extends CrudRepository<Usuario, Long>{
+import com.tfg.maceteros.modelo.User;
 
+@Repository
+public interface UsuarioDao extends JpaRepository<User, Long> {
+	Optional<User> findByUsername(String username);
+
+	Boolean existsByUsername(String username);
+
+	Boolean existsByEmail(String email);
 }
