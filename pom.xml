@@ -10,13 +10,13 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tfg</groupId>
-	<artifactId>macetero</artifactId>
+	<artifactId>cloudlab</artifactId>
 	<version>0.1.0</version>
-	<name>demo</name>
+	<name>cloudlabAPI</name>
 	<packaging>war</packaging>
 
 	<properties>
-		<start-class>com.tfg.maceteros.DemoApplication</start-class>
+		<start-class>com.tfg.maceteros.CloudLabApplication</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
