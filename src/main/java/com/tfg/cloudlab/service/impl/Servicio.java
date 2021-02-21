@@ -34,7 +34,6 @@ import com.tfg.cloudlab.modelo.dao.SensorClienteDao;
 import com.tfg.cloudlab.modelo.dao.SensorDao;
 import com.tfg.cloudlab.modelo.dao.TimeLineDao;
 import com.tfg.cloudlab.modelo.dao.TipoSensorDao;
-import com.tfg.cloudlab.modelo.dao.UsuarioDao;
 import com.tfg.cloudlab.service.IServicio;
 import com.tfg.cloudlab.service.config.Constantes;
 
@@ -59,8 +58,6 @@ public class Servicio implements IServicio {
     private EventsDao eventsDao;
     @Autowired
     private EventsMapper eventsMapper;
-    @Autowired
-    private UsuarioDao usuarioDao;
 
     @Bean
     private RestTemplate restTemplate(RestTemplateBuilder builder) {
