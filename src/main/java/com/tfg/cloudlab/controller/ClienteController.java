@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfg.cloudlab.dto.ClienteDTO;
 import com.tfg.cloudlab.service.IClienteService;
 
-
 @CrossOrigin(value = "*")
 @RestController
 @RequestMapping(value = "/api/client")
