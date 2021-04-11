@@ -3,7 +3,7 @@ package com.tfg.cloudlab.dto;
 public class ProjectDto {
 
 	private String title;
-	private String descripcion;
+	private String description;
 	private String keywords;
 	private String location;
 
@@ -15,12 +15,12 @@ public class ProjectDto {
 		this.title = title;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getKeywords() {

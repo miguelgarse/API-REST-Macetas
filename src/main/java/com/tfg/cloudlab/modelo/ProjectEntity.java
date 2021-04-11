@@ -24,9 +24,13 @@ public class ProjectEntity {
 	@Id
 	private Long id;
 	private String title;
-	private String descripcion;
+	private String description;
 	private String keywords;
 	private String location;
+
+	public ProjectEntity() {
+		// Empty constructor
+	}
 
 	public Long getId() {
 		return id;
@@ -44,12 +48,12 @@ public class ProjectEntity {
 		this.title = title;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getKeywords() {
