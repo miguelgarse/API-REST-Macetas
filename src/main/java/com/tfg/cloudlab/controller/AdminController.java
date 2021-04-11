@@ -1,6 +1,8 @@
 package com.tfg.cloudlab.controller;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -9,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,9 +66,22 @@ public class AdminController {
 		
 			user.setRoles(roles);
 			
+			// Auditoría
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			User createdBy = userService.getByUsername(authentication.getName()).get();
+			user.setCreatedBy(createdBy.getId());
+			user.setDateCreated(new Date());
+			
 			userService.save(user);
 			
 			return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
 		}
+	}
+	
+	@GetMapping("/getAllUsers")
+	public ResponseEntity<List<User>> getUsers(){
+		
+		return new ResponseEntity<>(this.userService.findAll(), HttpStatus.OK);
+		
 	}
 }
