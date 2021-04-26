@@ -1,21 +1,18 @@
 package com.tfg.cloudlab.modelo;
 
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.beans.BeanUtils;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.tfg.cloudlab.dto.ProjectDto;
 import com.tfg.cloudlab.security.entity.User;
 
 import lombok.AllArgsConstructor;
@@ -28,19 +25,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "PROJECT")
-public class ProjectEntity {
+@Table(name = "SENSOR")
+public class SensorEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String title;
-	private String description;
-	private String keywords;
-	private String location;
 
-	@JsonIgnoreProperties(value = "project")
-	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-	private List<SensorValueEntity> sensorValues;
+	private String name;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private SensorTypeEntity sensorType;
 
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	private User createdUser;
@@ -54,7 +49,7 @@ public class ProjectEntity {
 	@Temporal(TemporalType.DATE)
 	private Date dateLastModified;
 
-	public ProjectEntity() {
+	public SensorEntity() {
 		// Empty constructor
 	}
 
@@ -66,44 +61,20 @@ public class ProjectEntity {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public SensorTypeEntity getSensorType() {
+		return sensorType;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public List<SensorValueEntity> getSensorValues() {
-		return sensorValues;
-	}
-
-	public void setSensorValues(List<SensorValueEntity> sensorValues) {
-		this.sensorValues = sensorValues;
+	public void setSensorType(SensorTypeEntity sensorType) {
+		this.sensorType = sensorType;
 	}
 
 	public User getCreatedUser() {
@@ -136,16 +107,6 @@ public class ProjectEntity {
 
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
-	}
-
-	public ProjectEntity(ProjectDto project) {
-		BeanUtils.copyProperties(project, this);
-	}
-
-	public ProjectDto toProjectDto() {
-		ProjectDto project = new ProjectDto();
-		BeanUtils.copyProperties(this, project);
-		return project;
 	}
 
 }

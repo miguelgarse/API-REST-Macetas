@@ -1,6 +1,7 @@
 package com.tfg.cloudlab.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,17 @@ public class ProjectService {
 		return null;
 	}
 
+	public ProjectDto findById(Long id) {
+		Optional<ProjectEntity> project = projectRepository.findById(id);
+		
+		return project.map(ProjectEntity::toProjectDto)
+				.orElse(new ProjectDto());
+	}
+	
 	public List<ProjectDto> findAll() {
-		return projectRepository.findAll()
-				.stream()
+		List<ProjectEntity> projects = projectRepository.findAll();
+		
+		return projects.stream()
 				.map(ProjectEntity::toProjectDto)
 				.collect(Collectors.toList());
 	}

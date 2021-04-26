@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.cloudlab.dto.EventsDTO;
-import com.tfg.cloudlab.dto.TimeLineDTO;
+import com.tfg.cloudlab.dto.SensorValueDto;
 import com.tfg.cloudlab.service.IServicio;
 
 @CrossOrigin(value = "*")
@@ -24,7 +24,7 @@ public class ServiceController {
 	private IServicio service;
 
 	@PostMapping(value = "/persistir")
-	public List<TimeLineDTO> persistirDatos(@RequestHeader String device, @RequestHeader String cliente) {
+	public List<SensorValueDto> persistirDatos(@RequestHeader String device, @RequestHeader String cliente) {
 		return service.persisitirDatos(device, cliente);
 	}
 

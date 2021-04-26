@@ -2,7 +2,7 @@ package com.tfg.cloudlab.dto;
 
 public class Sensor_ClienteDTO {
 	private Long id;
-	private SensorDTO sensores;
+	private SensorDto sensores;
 	private ClienteDTO cliente;
 
 	public Long getId() {
@@ -13,11 +13,11 @@ public class Sensor_ClienteDTO {
 		this.id = id;
 	}
 
-	public SensorDTO getSensores() {
+	public SensorDto getSensores() {
 		return sensores;
 	}
 
-	public void setSensores(SensorDTO sensores) {
+	public void setSensores(SensorDto sensores) {
 		this.sensores = sensores;
 	}
 

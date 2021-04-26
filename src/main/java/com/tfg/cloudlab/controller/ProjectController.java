@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,10 +49,14 @@ public class ProjectController {
 	}
 
 	@GetMapping
-	public List<ProjectDto> findAll() {
-		return projectService.findAll();
+	public ResponseEntity<List<ProjectDto>> findAll() {
+		return	ResponseEntity.ok(projectService.findAll());
 	}
-
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ProjectDto> findById(@PathVariable Long id) {
+		return	ResponseEntity.ok(projectService.findById(id));
+	}
 
 	@PostMapping(value = "/add-data")
 	public ResponseEntity addData(@RequestBody MultipartFile file) {

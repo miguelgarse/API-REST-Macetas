@@ -7,31 +7,31 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
-import com.tfg.cloudlab.modelo.Sensor;
+import com.tfg.cloudlab.modelo.SensorEntity;
+
 @Repository
-public class SensorDaoImpl implements SensorDaoCustom{
-	/**
-     * Entity Manager que gestiona los accesos a BD
-     */
-    @PersistenceContext
-    private EntityManager entityManager;
+public class SensorDaoImpl implements SensorDaoCustom {
 
-    public List<Sensor> findByTipoSensor(String a) {
-    	Integer i = Integer.parseInt(a); 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Sensor> query = cb.createQuery(Sensor.class);
-        Root<Sensor> sensor = query.from(Sensor.class);
-        query.select(sensor).where(sensor.get("tipoSensor").in(i));
-        return entityManager.createQuery(query).getResultList();
-    }
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    public Sensor findByName(String a) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Sensor> query = cb.createQuery(Sensor.class);
-        Root<Sensor> sensor = query.from(Sensor.class);
-        query.select(sensor).where(sensor.get("nombre").in(a));
-        return entityManager.createQuery(query).getSingleResult();
-    }
+	public List<SensorEntity> findByTipoSensor(String a) {
+		Integer i = Integer.parseInt(a);
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<SensorEntity> query = cb.createQuery(SensorEntity.class);
+		Root<SensorEntity> sensor = query.from(SensorEntity.class);
+		query.select(sensor).where(sensor.get("tipoSensor").in(i));
+		return entityManager.createQuery(query).getResultList();
+	}
+
+	public SensorEntity findByName(String a) {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<SensorEntity> query = cb.createQuery(SensorEntity.class);
+		Root<SensorEntity> sensor = query.from(SensorEntity.class);
+		query.select(sensor).where(sensor.get("nombre").in(a));
+		return entityManager.createQuery(query).getSingleResult();
+	}
 }

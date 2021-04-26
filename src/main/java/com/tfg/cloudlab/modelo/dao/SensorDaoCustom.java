@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.tfg.cloudlab.modelo.Sensor;
+import com.tfg.cloudlab.modelo.SensorEntity;
 
 @Repository
 public interface SensorDaoCustom {
 
-	List<Sensor> findByTipoSensor(String i);
-	Sensor findByName(String a);
-	
+	List<SensorEntity> findByTipoSensor(String i);
+
+	SensorEntity findByName(String a);
+
 }

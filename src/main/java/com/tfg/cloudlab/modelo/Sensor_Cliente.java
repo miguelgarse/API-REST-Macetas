@@ -14,43 +14,51 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SENSOR_CLIENT")
 public class Sensor_Cliente implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2427056520875376146L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+
 	@OneToOne(cascade = CascadeType.REFRESH)
-	private Sensor sensor;
+	private SensorEntity sensor;
+	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Cliente cliente;
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Sensor getSensores() {
+
+	public SensorEntity getSensores() {
 		return sensor;
 	}
-	public void setSensores(Sensor sensor) {
+
+	public void setSensores(SensorEntity sensor) {
 		this.sensor = sensor;
 	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 	@Override
 	public String toString() {
 		return "Sensor_Cliente [id=" + id + ", sensores=" + sensor + ", cliente=" + cliente + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,6 +68,7 @@ public class Sensor_Cliente implements Serializable {
 		result = prime * result + ((sensor == null) ? 0 : sensor.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

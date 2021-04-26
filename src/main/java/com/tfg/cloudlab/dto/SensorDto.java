@@ -1,26 +1,21 @@
 package com.tfg.cloudlab.dto;
 
 import java.util.Date;
-import java.util.List;
 
-import com.tfg.cloudlab.modelo.SensorValueEntity;
 import com.tfg.cloudlab.security.entity.User;
 
-public class ProjectDto {
+public class SensorDto {
 
 	private Long id;
-	private String title;
-	private String description;
-	private String keywords;
-	private String location;
-	private List<SensorValueEntity> sensorValues;
+	private String name;
+	private String sensorTypeId;
 	private User createdUser;
 	private User lastModifieduser;
 	private Date dateCreated;
 	private Date dateLastModified;
 
-	public ProjectDto() {
-		// Empty constructor
+	public SensorDto() {
+		super();
 	}
 
 	public Long getId() {
@@ -31,44 +26,20 @@ public class ProjectDto {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getSensorTypeId() {
+		return sensorTypeId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public List<SensorValueEntity> getSensorValues() {
-		return sensorValues;
-	}
-
-	public void setSensorValues(List<SensorValueEntity> sensorValues) {
-		this.sensorValues = sensorValues;
+	public void setSensorTypeId(String sensorTypeId) {
+		this.sensorTypeId = sensorTypeId;
 	}
 
 	public User getCreatedUser() {

@@ -1,5 +1,6 @@
 package com.tfg.cloudlab.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -22,18 +23,16 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tfg.cloudlab.dto.EventsDTO;
-import com.tfg.cloudlab.dto.TimeLineDTO;
+import com.tfg.cloudlab.dto.SensorValueDto;
 import com.tfg.cloudlab.mappers.EventsMapper;
 import com.tfg.cloudlab.mappers.TimelineMapper;
 import com.tfg.cloudlab.modelo.Cliente;
+import com.tfg.cloudlab.modelo.SensorValueEntity;
 import com.tfg.cloudlab.modelo.Sensor_Cliente;
-import com.tfg.cloudlab.modelo.Timeline;
 import com.tfg.cloudlab.modelo.dao.ClienteDao;
 import com.tfg.cloudlab.modelo.dao.EventsDao;
 import com.tfg.cloudlab.modelo.dao.SensorClienteDao;
-import com.tfg.cloudlab.modelo.dao.SensorDao;
-import com.tfg.cloudlab.modelo.dao.TimeLineDao;
-import com.tfg.cloudlab.modelo.dao.TipoSensorDao;
+import com.tfg.cloudlab.modelo.dao.SensorValueRepository;
 import com.tfg.cloudlab.service.IServicio;
 import com.tfg.cloudlab.service.config.Constantes;
 
@@ -42,20 +41,22 @@ public class Servicio implements IServicio {
 
     @Autowired
     private RestTemplate restTemplate;
+    
     @Autowired
     private ClienteDao clienteDao;
+    
     @Autowired
-    private TimeLineDao timeLineDao;
+    private SensorValueRepository sensorValueRepository;
+    
     @Autowired
     private TimelineMapper timelineMapper;
-    @Autowired
-    private TipoSensorDao tipoSensorDao;
-    @Autowired
-    private SensorDao sensorDao;
+    
     @Autowired
     private SensorClienteDao sensorClienteDao;
+    
     @Autowired
     private EventsDao eventsDao;
+    
     @Autowired
     private EventsMapper eventsMapper;
 
@@ -79,10 +80,10 @@ public class Servicio implements IServicio {
         return headers;
     }
 
-    public List<TimeLineDTO> persisitirDatos(String device, String idThingsboard) {
+    public List<SensorValueDto> persisitirDatos(String device, String idThingsboard) {
         Logger logger = LoggerFactory.getLogger(Servicio.class);
         Cliente cliente = clienteDao.findByThingsBoard(idThingsboard);
-        List<TimeLineDTO> listaResultado = new ArrayList<TimeLineDTO>();
+        List<SensorValueDto> listaResultado = new ArrayList<SensorValueDto>();
         if (device != null) {
             String url = Constantes.ENDPOINT.concat(device).concat("/values/timeseries");
             ObjectMapper objectMapper = new ObjectMapper();
@@ -94,15 +95,16 @@ public class Servicio implements IServicio {
                 logger.info("VALORES OBTENIDOS: ", valores);
                 Object[] arrayKeys = valores.keySet().toArray();
                 for (Object object : arrayKeys) {
-                    Timeline timeline = new Timeline();
+                    SensorValueEntity timeline = new SensorValueEntity();
                     Object lectura = valores.get(object);
                     try {
                         Sensor_Cliente sensor_cliente = sensorClienteDao.findByClienteSensor(idThingsboard, object.toString());
                         String valor = ((LinkedHashMap) ((ArrayList) lectura).get(0)).get("value").toString();
-                        timeline.setFecha(new Date());
+                        BigDecimal valorDecimal = new BigDecimal(valor);
+                        timeline.setDateCreated(new Date());
                         timeline.setSensor(sensor_cliente.getSensores());
-                        timeline.setValor(valor);
-                        timeLineDao.save(timeline);
+                        timeline.setValor(valorDecimal);
+                        sensorValueRepository.save(timeline);
                         listaResultado.add(timelineMapper.entityToDto(timeline));
                     } catch (EmptyResultDataAccessException e) {
 

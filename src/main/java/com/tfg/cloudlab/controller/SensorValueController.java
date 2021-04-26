@@ -8,25 +8,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tfg.cloudlab.dto.TimeLineDTO;
-import com.tfg.cloudlab.dto.ValoresangularDTO;
-import com.tfg.cloudlab.service.ITimeLineService;
+import com.tfg.cloudlab.dto.SensorDto;
+import com.tfg.cloudlab.service.impl.SensorValueService;
 
 @RestController
 @RequestMapping(value = "/api/timeLine")
-public class TimeLineController {
-
+public class SensorValueController {
+	
+	private SensorValueService sensorValueService;
+	
 	@Autowired
-	private ITimeLineService service;
-
+	public SensorValueController(SensorValueService sensorValueService) {
+		this.sensorValueService = sensorValueService;
+	}
+	
 	@GetMapping(value = "/{sensor_id}")
-	public List<TimeLineDTO> valoresSensor(
-			@PathVariable(value = "sensor_id") String sensorId) {
-		return service.valoresSensor(sensorId);
+	public List<SensorDto> valoresSensor(@PathVariable(value = "sensor_id") String sensorId) {
+		return sensorValueService.valoresSensor(sensorId);
 	}
 
-	@GetMapping(value = "all")
-	public List<ValoresangularDTO> valoresCliente() {
-		return service.valoresCliente();
-	}
 }

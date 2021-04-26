@@ -1,20 +1,21 @@
 package com.tfg.cloudlab.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 
-import com.tfg.cloudlab.dto.SensorDTO;
-import com.tfg.cloudlab.dto.TimeLineDTO;
-import com.tfg.cloudlab.modelo.Sensor;
-import com.tfg.cloudlab.modelo.Timeline;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.tfg.cloudlab.dto.SensorDto;
+import com.tfg.cloudlab.dto.SensorValueDto;
+import com.tfg.cloudlab.modelo.SensorValueEntity;
 
 @Mapper(componentModel = "spring", uses = SensorMapper.class)
 public interface TimelineMapper {
 
-    TimeLineDTO entityToDto(Timeline entity);
-    Timeline dtoToEntity(TimeLineDTO dto);
-    List<TimeLineDTO> entitiesToDto(List<Timeline> entity);
-    List<Timeline> dtosToEntities(List<TimeLineDTO> dto);
+	SensorValueDto entityToDto(SensorValueEntity entity);
+
+	SensorValueEntity dtoToEntity(SensorValueDto dto);
+
+	List<SensorDto> entitiesToDto(List<SensorValueEntity> entity);
+
+	List<SensorValueEntity> dtosToEntities(List<SensorDto> dto);
 }

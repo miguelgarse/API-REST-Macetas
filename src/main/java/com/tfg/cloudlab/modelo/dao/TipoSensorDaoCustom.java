@@ -1,11 +1,12 @@
 package com.tfg.cloudlab.modelo.dao;
 
-
 import org.springframework.stereotype.Repository;
 
-import com.tfg.cloudlab.modelo.TipoSensor;
+import com.tfg.cloudlab.modelo.SensorTypeEntity;
+
 @Repository
 public interface TipoSensorDaoCustom {
 
-	TipoSensor findByNombre(String i);
+	SensorTypeEntity findByName(String name);
+	
 }
