@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,9 +56,15 @@ public class ProjectController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ProjectDto> findById(@PathVariable Long id) {
-		return	ResponseEntity.ok(projectService.findById(id));
+		return ResponseEntity.ok(projectService.findById(id));
 	}
 
+	@GetMapping("/byCurrentUser")
+	public ResponseEntity<List<ProjectDto>> findAllByCurrentUser(Authentication authentication) {
+		String username = authentication.getName();
+		return ResponseEntity.ok(projectService.findAllByCurrentUser(username));
+	}
+	
 	@PostMapping(value = "/add-data")
 	public ResponseEntity addData(@RequestBody MultipartFile file) {
 

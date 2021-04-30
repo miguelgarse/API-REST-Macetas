@@ -1,5 +1,6 @@
 package com.tfg.cloudlab.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,15 +11,19 @@ import org.springframework.stereotype.Service;
 import com.tfg.cloudlab.dto.ProjectDto;
 import com.tfg.cloudlab.modelo.ProjectEntity;
 import com.tfg.cloudlab.modelo.dao.ProjectRepository;
+import com.tfg.cloudlab.security.entity.User;
+import com.tfg.cloudlab.security.repository.UserRepository;
 
 @Service
 public class ProjectService {
 
 	private ProjectRepository projectRepository;
+	private UserRepository userRepository;
 
 	@Autowired
-	public ProjectService(ProjectRepository projectRepository) {
+	public ProjectService(ProjectRepository projectRepository, UserRepository userRepository) {
 		this.projectRepository = projectRepository;
+		this.userRepository = userRepository; 
 	}
 
 	public ProjectDto newProject(ProjectDto project) {
@@ -53,4 +58,20 @@ public class ProjectService {
 				.collect(Collectors.toList());
 	}
 
+	public List<ProjectDto> findAllByCurrentUser(String username) {
+		List<ProjectDto> projectDtoList = new ArrayList<>();
+		
+		Optional<User> optionalUser = this.userRepository.findByUsername(username);
+		
+		if(optionalUser.isPresent()) {
+			List<ProjectEntity> projects = projectRepository.findByCreatedUser(optionalUser.get());
+			
+			projectDtoList = projects.stream()
+					.map(ProjectEntity::toProjectDto)
+					.collect(Collectors.toList());
+		}
+		
+		return projectDtoList;
+	}
+	
 }
