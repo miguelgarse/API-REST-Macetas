@@ -4,7 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.springframework.beans.BeanUtils;
+
+import com.tfg.cloudlab.dto.SensorTypeDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,11 +21,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "SensorType")
+@Table(name = "SENSOR_TYPE")
 public class SensorTypeEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SENSOR_TYPE_ID_GENERATOR")
+	@SequenceGenerator(name = "SENSOR_TYPE_ID_GENERATOR", sequenceName = "SEQ_SENSOR_TYPE", allocationSize = 1)
 	private Long id;
 
 	private String name;
@@ -55,4 +61,14 @@ public class SensorTypeEntity {
 		this.description = description;
 	}
 
+	public SensorTypeEntity(SensorTypeDto sensorType) {
+		BeanUtils.copyProperties(sensorType, this);
+	}
+
+	public SensorTypeDto toSensorTypeDto() {
+		SensorTypeDto sensorType = new SensorTypeDto();
+		BeanUtils.copyProperties(this, sensorType);
+		return sensorType;
+	}
+	
 }

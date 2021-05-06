@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tfg.cloudlab.dto.ProjectDto;
-import com.tfg.cloudlab.service.impl.ProjectService;
+import com.tfg.cloudlab.service.ProjectService;
 
 @CrossOrigin(value = "*")
 @RestController
@@ -39,7 +39,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping
-	public ProjectDto newProject(@NotNull @NotEmpty @RequestBody ProjectDto project) {
+	public ProjectDto newProject(@RequestBody ProjectDto project) {
 		return projectService.newProject(project);
 	}
 	

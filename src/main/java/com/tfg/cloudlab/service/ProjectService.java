@@ -1,6 +1,7 @@
-package com.tfg.cloudlab.service.impl;
+package com.tfg.cloudlab.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import com.tfg.cloudlab.modelo.ProjectEntity;
 import com.tfg.cloudlab.modelo.dao.ProjectRepository;
 import com.tfg.cloudlab.security.entity.User;
 import com.tfg.cloudlab.security.repository.UserRepository;
+import com.tfg.cloudlab.utils.Utilities;
 
 @Service
 public class ProjectService {
@@ -27,6 +29,17 @@ public class ProjectService {
 	}
 
 	public ProjectDto newProject(ProjectDto project) {
+		
+		Optional<User> optionalUser = this.userRepository.findByUsername(Utilities.getCurrentUser().getUsername());
+		
+		if(optionalUser.isPresent()) {
+			project.setCreatedUser(optionalUser.get());
+			project.setLastModifieduser(optionalUser.get());
+		}
+		
+		project.setDateLastModified(new Date());
+		project.setDateCreated(new Date());
+		
 		ProjectEntity projectEntity = new ProjectEntity(project);
 		return projectRepository.save(projectEntity).toProjectDto();
 	}

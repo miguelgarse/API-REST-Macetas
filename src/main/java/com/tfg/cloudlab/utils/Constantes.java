@@ -1,4 +1,4 @@
-package com.tfg.cloudlab.service.config;
+package com.tfg.cloudlab.utils;
 
 public class Constantes {
 

@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,44 +17,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfg.cloudlab.dto.SensorDto;
-import com.tfg.cloudlab.service.ISensorService;
+import com.tfg.cloudlab.service.SensorService;
 
+@CrossOrigin(value = "*")
 @RestController
-@RequestMapping(value = "/api/sensors")
+@RequestMapping(value = "/api/sensor")
 public class SensorController {
 
+	private SensorService sensorService;
+	
 	@Autowired
-	private ISensorService service;
-
-	@PutMapping(value = "")
-	public SensorDto addSensor(@NotNull @NotEmpty @RequestBody SensorDto sensor) {
-		return service.addSensor(sensor);
+	public SensorController(SensorService sensorService) {
+		this.sensorService = sensorService;
 	}
 
-	@PostMapping(value = "/{sensor_id}")
-	public SensorDto modificarSensor(@NotNull @NotEmpty @RequestBody SensorDto sensor,
-			@PathVariable("sensor_id") String identificador) {
-		return service.modificarSensor(sensor, identificador);
+	@PostMapping(value = "")
+	public SensorDto createSensor(@NotNull @NotEmpty @RequestBody SensorDto sensor) {
+		return this.sensorService.createSensor(sensor);
 	}
 
-	@DeleteMapping(value = "/{sensor_id}")
-	public void borrarSensor(@PathVariable("sensor_id") String identificador) {
-		service.borrarSensor(identificador);
+	@PutMapping(value = "/{sensorId}")
+	public SensorDto updateSensor(@NotNull @NotEmpty @RequestBody SensorDto sensor, String sensorId) {
+		return this.sensorService.updateSensor(sensor, sensorId);
+	}
+
+	@DeleteMapping(value = "/{sensorId}")
+	public void deleteSensor(@PathVariable String sensorId) {
+		this.sensorService.deleteSensor(sensorId);
 	}
 
 	@GetMapping(value = "")
-	public List<SensorDto> listarSensores() {
-		return service.listarSensores();
+	public List<SensorDto> findAllSensors() {
+		return this.sensorService.findAll();
 	}
 
-	@GetMapping(value = "/{sensor_id}")
-	public SensorDto buscarSensor(@PathVariable(value = "sensor_id") String sensor_id) {
-		return service.buscarSensor(sensor_id);
+	@GetMapping(value = "/{sensorId}")
+	public SensorDto findSensorBySensorId(@PathVariable String sensorId) {
+		return this.sensorService.findBySensorId(sensorId);
 	}
 
-	@GetMapping(value = "/client/{cliente_id}")
-	public List<SensorDto> listarSensoresDeCliente(@PathVariable(value = "cliente_id") String idThingsboard) {
-		return service.listarSensoresCliente(idThingsboard);
+	@GetMapping(value = "/{projectId}")
+	public SensorDto findSensorByProjectId(@PathVariable String projectId) {
+		return this.sensorService.findBySensorId(projectId);
 	}
-
+	
 }

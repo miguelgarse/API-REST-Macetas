@@ -3,7 +3,6 @@ package com.tfg.cloudlab.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.tfg.cloudlab.modelo.SensorValueEntity;
 import com.tfg.cloudlab.security.entity.User;
 
 public class ProjectDto {
@@ -13,7 +12,7 @@ public class ProjectDto {
 	private String description;
 	private String keywords;
 	private String location;
-	private List<SensorValueEntity> sensorValues;
+	private List<SensorDto> sensors;
 	private User createdUser;
 	private User lastModifieduser;
 	private Date dateCreated;
@@ -63,12 +62,12 @@ public class ProjectDto {
 		this.location = location;
 	}
 
-	public List<SensorValueEntity> getSensorValues() {
-		return sensorValues;
+	public List<SensorDto> getSensors() {
+		return sensors;
 	}
 
-	public void setSensorValues(List<SensorValueEntity> sensorValues) {
-		this.sensorValues = sensorValues;
+	public void setSensors(List<SensorDto> sensors) {
+		this.sensors = sensors;
 	}
 
 	public User getCreatedUser() {

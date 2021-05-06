@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +35,8 @@ import lombok.NoArgsConstructor;
 public class ProjectEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJECT_ID_GENERATOR")
+	@SequenceGenerator(name = "PROJECT_ID_GENERATOR", sequenceName = "SEQ_PROJECT", allocationSize = 1)
 	private Long id;
 	private String title;
 	private String description;
@@ -40,7 +45,7 @@ public class ProjectEntity {
 
 	@JsonIgnoreProperties(value = "project")
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-	private List<SensorValueEntity> sensorValues;
+	private List<SensorEntity> sensors;
 
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	private User createdUser;
@@ -97,13 +102,13 @@ public class ProjectEntity {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-	public List<SensorValueEntity> getSensorValues() {
-		return sensorValues;
+	
+	public List<SensorEntity> getSensors() {
+		return sensors;
 	}
 
-	public void setSensorValues(List<SensorValueEntity> sensorValues) {
-		this.sensorValues = sensorValues;
+	public void setSensors(List<SensorEntity> sensors) {
+		this.sensors = sensors;
 	}
 
 	public User getCreatedUser() {

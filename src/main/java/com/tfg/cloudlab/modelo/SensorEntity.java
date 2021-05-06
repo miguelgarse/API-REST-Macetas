@@ -9,10 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.beans.BeanUtils;
+
+import com.tfg.cloudlab.dto.SensorDto;
 import com.tfg.cloudlab.security.entity.User;
 
 import lombok.AllArgsConstructor;
@@ -29,14 +33,18 @@ import lombok.NoArgsConstructor;
 public class SensorEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SENSOR_ID_GENERATOR")
+	@SequenceGenerator(name = "SENSOR_ID_GENERATOR", sequenceName = "SEQ_SENSOR", allocationSize = 1)
 	private Long id;
 
 	private String name;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private SensorTypeEntity sensorType;
-
+	
+	@ManyToOne(targetEntity = ProjectEntity.class, fetch = FetchType.LAZY)
+	private ProjectEntity project;
+	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	private User createdUser;
 
@@ -76,6 +84,14 @@ public class SensorEntity {
 	public void setSensorType(SensorTypeEntity sensorType) {
 		this.sensorType = sensorType;
 	}
+	
+	public ProjectEntity getProject() {
+		return project;
+	}
+
+	public void setProject(ProjectEntity project) {
+		this.project = project;
+	}
 
 	public User getCreatedUser() {
 		return createdUser;
@@ -109,4 +125,14 @@ public class SensorEntity {
 		this.dateLastModified = dateLastModified;
 	}
 
+	public SensorEntity(SensorDto sensor) {
+		BeanUtils.copyProperties(sensor, this);
+	}
+
+	public SensorDto toSensorDto() {
+		SensorDto sensor = new SensorDto();
+		BeanUtils.copyProperties(this, sensor);
+		return sensor;
+	}
+	
 }

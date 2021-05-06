@@ -13,10 +13,10 @@
 	<artifactId>cloudlab</artifactId>
 	<version>0.1.0</version>
 	<name>cloudlabAPI</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
-		<start-class>com.tfg.maceteros.CloudLabApplication</start-class>
+		<start-class>com.tfg.cloudlab.CloudLabApplication</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>

@@ -133,16 +133,6 @@ ALTER TABLE public.sensor_type_id_seq OWNER TO postgres;
 ALTER SEQUENCE public.sensor_type_id_seq OWNED BY public.sensor_type.id;
 
 
-CREATE SEQUENCE public.seq_afic
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.seq_afic OWNER TO postgres;
-
 
 CREATE TABLE public.timeline (
     id bigint NOT NULL,
